@@ -2,6 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.4.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'jacoco'
 }
 
 group = 'com.up2date'
@@ -14,12 +17,60 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    //Thymeleaf dependency - used for thymeleaf implementation
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    //Thymeleaf extra dependency - used for handling time library with thymeleaf
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
+
+    //Spring Boot Starter web dependency - used for building a RESTFUL app
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    //Hibernate validator dependency - used for validation constraints
+    implementation 'org.hibernate:hibernate-validator:6.0.13.Final'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    //JUnit dependency
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+    //Spring Boot starter test - for testing
+    //testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
 }
 
 test {
     useJUnitPlatform()
+}
+
+// JACOCO TOOL VERSION
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+//CONFIGURATION TEST REPORT JACOCO
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+//CONFIGURATION TEST COVERAGE VERIFICATIONS (WITH VIOLATION RULES)
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.5
+            }
+        }
+    }
 }
