@@ -15,7 +15,7 @@ public class EmployeeModel {
     @Id
     @Column(name = "employee_id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer employee_id;
+    private Integer employeeId;
 
     @Enumerated(EnumType.STRING)
     @Column()
@@ -32,16 +32,16 @@ public class EmployeeModel {
     private String familyName;
 
     @Valid
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
-    @JoinColumn(name="training_id",  foreignKey = @ForeignKey(name = "trainings_ibfk_1"))
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="employee", cascade = CascadeType.ALL)
+    //@JoinColumn(name="training_id", foreignKey = @ForeignKey(name = "trainings_ibfk_1"))
     private List<TrainingModel> training;
 
-    public Integer getEmployee_id() {
-        return employee_id;
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(Integer employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     public RoleEnum getRole() {
@@ -74,16 +74,5 @@ public class EmployeeModel {
 
     public void setTraining(List<TrainingModel> training) {
         this.training = training;
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeeModel{" +
-                "employee_id=" + employee_id +
-                ", role=" + role +
-                ", givenName='" + givenName + '\'' +
-                ", familyName='" + familyName + '\'' +
-                ", training=" + training +
-                '}';
     }
 }

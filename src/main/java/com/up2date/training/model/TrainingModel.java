@@ -16,11 +16,11 @@ public class TrainingModel {
     private Integer trainingId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private EmployeeModel employee;
 
-    @Column(name = "employee_id")
-    private Integer employeeId;
+    //@Column(name = "employee_id")
+    //private Integer employeeId;
 
     @NotEmpty(message="Category cannot be empty")
     @Size(min=2, max=125, message="Name must be between 2 and 125 characters")
@@ -62,14 +62,6 @@ public class TrainingModel {
         this.employee = employee;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -108,19 +100,5 @@ public class TrainingModel {
 
     public void setTotalHours(String totalHours) {
         this.totalHours = totalHours;
-    }
-
-    @Override
-    public String toString() {
-        return "TrainingModel{" +
-                "trainingId=" + trainingId +
-                ", employee=" + employee +
-                ", employeeId=" + employeeId +
-                ", category='" + category + '\'' +
-                ", name='" + name + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", totalHours='" + totalHours + '\'' +
-                '}';
     }
 }

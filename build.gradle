@@ -38,7 +38,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
     //Spring Boot starter test - for testing
-    //testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
 }
 
 test {
