@@ -49,7 +49,6 @@ public class EmployeeService {
 
     /**
      * Get a list of all employees present in the DB "Up2Date" => table "employees"
-     *
      * @return list of EmployeeModel containing all employees
      */
     public List<EmployeeModel> findAllEmployees() {
@@ -58,20 +57,18 @@ public class EmployeeService {
 
     /**
      * Find an employee based on its employee ID
-     *
      * @param employeeId primitive type int
-     * @return list of EmployeeModel containing all employees
+     * @return EmployeeModel containing the employee found
      */
     public EmployeeModel findEmployee(int employeeId) {
         return employeeRep.findByEmployeeId(employeeId);
     }
 
     /**
-     * Set a new EmployeeModel from data inside the request, to the EmployeeModel
      * Save a new employee in the DB
      *
      * @param employee the EmployeeModel to save
-     * @return employee saved
+     * @return EmployeeModel saved
      */
     public EmployeeModel saveEmployee(EmployeeModel employee) {
         employeeRep.save(employee);

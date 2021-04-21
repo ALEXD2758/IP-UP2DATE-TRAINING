@@ -42,10 +42,10 @@ public class EmployeeController {
 
     /**
      * HTTP GET request to get the "employee/add" view
-     * Adds attribute "employees" to the model, containing all employees available in the table "employees"
+     * Adds attribute "employeeToCreate" to the model, containing a new EmployeeModel
      *
      * @param model Model Interface, to add attributes to it
-     * @return a string to the address "employee/list", returning the associated view
+     * @return a string to the address "employee/add", returning the associated view
      * with the specified attribute
      */
     @GetMapping("/employee/add")

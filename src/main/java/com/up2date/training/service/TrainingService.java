@@ -32,7 +32,7 @@ public class TrainingService {
      * Save a new training in the DB
      * @param training the EmployeeModel to save
      * @param employeeId Integer of the employeeId to retrieve
-     * @return trainingModel saved
+     * @return TrainingModel saved
      */
     public TrainingModel saveTraining(TrainingModel training, Integer employeeId) {
         EmployeeModel employee = employeeRep.findByEmployeeId(employeeId);

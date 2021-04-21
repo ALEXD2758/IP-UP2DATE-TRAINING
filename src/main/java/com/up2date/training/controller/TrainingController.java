@@ -30,11 +30,11 @@ public class TrainingController {
     }
 
     /**
-     * HTTP GET request to get the "employee/list" view
-     * Adds attribute "employees" to the model, containing all employees available in the table "employees"
+     * HTTP GET request to get the "training/list" view
+     * Adds attribute "trainings" to the model, containing all trainings available in the table "trainings"
      *
      * @param model Model Interface, to add attributes to it
-     * @return a string to the address "employee/list", returning the associated view
+     * @return a string to the address "training/list", returning the associated view
      * with the specified attribute
      */
     @GetMapping("/training/list/{employeeId}")
@@ -46,11 +46,11 @@ public class TrainingController {
     }
 
     /**
-     * HTTP GET request to get the "employee/add" view
-     * Adds attribute "employees" to the model, containing all employees available in the table "employees"
+     * HTTP GET request to get the "training/add" view
+     * Adds attribute "trainingToCreate" to the model, containing a new TrainingModel
      *
      * @param model Model Interface, to add attributes to it
-     * @return a string to the address "employee/list", returning the associated view
+     * @return a string to the address "training/list", returning the associated view
      * with the specified attribute
      */
     @GetMapping("/training/add/{employeeId}")
@@ -64,6 +64,15 @@ public class TrainingController {
         return "training/add";
     }
 
+    /**
+     * HTML POST request to add a new training if it doesn't exist already and has no errors
+     * Add redirect attributes messages: ErrorEmployeeExistentMessage if the employee already exists
+     *                                   successSaveMessage if the training was successfully added
+     *
+     * @param trainingToCreate the TrainingModel with annotation @Valid (for the possible constraints)
+     * @param ra the RedirectAttributes to redirect attributes in redirect
+     * @return a string to the address "training/add" or "training/list", returning the associated view, with attributes
+     */
     @PostMapping("/training/add/validate/{employeeId}")
     public String trainingAddValidate(@PathVariable("employeeId") Integer employeeId,
                                       @Valid @ModelAttribute("trainingToCreate") final TrainingModel trainingToCreate,
@@ -78,6 +87,9 @@ public class TrainingController {
             ra.addFlashAttribute("successSaveMessage", "Training was successfully added");
             return "redirect:/training/list/{employeeId}";
         }
+        //The BindingResult is not being redirected and has to be sent through a FlashAttribute along
+        //with the TrainingModel object
+        //Check trainingAdd to see how to handle it
         if (result.hasErrors()) {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.trainingToCreate", result);
             ra.addFlashAttribute("trainingToCreate", trainingToCreate);
