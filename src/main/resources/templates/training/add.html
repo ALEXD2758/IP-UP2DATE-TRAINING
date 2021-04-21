@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<title>Up2Date - Training Tracker</title>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Training</h2>
+	</div>
+	<!--/*@thymesVar id="ErrorEmployeeExistentMessage" type=""*/-->
+	<p class="alert alert-danger" th:if="${!#strings.isEmpty(ErrorEmployeeExistentMessage)}" th:text="${ErrorEmployeeExistentMessage}"></p>
+
+	<div class="row">
+		<form action="#" th:action="@{/training/add/validate/{employeeId}(employeeId=${employeeId})}"  method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="category" class="col-sm-2 control-label">Category</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{trainingToCreate.category}" id="category" placeholder="Category" class="col-4">
+							<p class="text-danger" th:if="${#fields.hasErrors('trainingToCreate.category')}" th:errors="*{trainingToCreate.category}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{trainingToCreate.name}" id="name" placeholder="Name" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('trainingToCreate.name')}" th:errors="*{trainingToCreate.name}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="startDate" class="col-sm-2 control-label">Start Date</label>
+				<div class="col-sm-10">
+					<input type="date" th:field="*{trainingToCreate.startDate}" id="startDate" placeholder="StartDate" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('trainingToCreate.startDate')}" th:errors="*{trainingToCreate.startDate}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="endDate" class="col-sm-2 control-label">End Date</label>
+				<div class="col-sm-10">
+					<input type="date" th:field="*{trainingToCreate.endDate}" id="endDate" placeholder="EndDate" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('trainingToCreate.endDate')}" th:errors="*{trainingToCreate.endDate}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="totalHours" class="col-sm-2 control-label">Total Hours</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{trainingToCreate.totalHours}" id="totalHours" placeholder="TotalHours" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('trainingToCreate.totalHours')}" th:errors="*{trainingToCreate.totalHours}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" th:href="@{/training/list/{employeeId}(employeeId=${employeeId})}">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add training">
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+</div>
+</body>
+</html>

@@ -32,7 +32,7 @@ public class EmployeeModel {
     private String familyName;
 
     @Valid
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="employee", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy= "employee", cascade = CascadeType.ALL)
     //@JoinColumn(name="training_id", foreignKey = @ForeignKey(name = "trainings_ibfk_1"))
     private List<TrainingModel> training;
 

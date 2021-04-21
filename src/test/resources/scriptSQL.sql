@@ -5,20 +5,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema up2date
+-- Schema up2date_test
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `up2date` ;
+DROP SCHEMA IF EXISTS `up2date_test` ;
 
 -- -----------------------------------------------------
--- Schema up2date
+-- Schema up2date_test
 -- -----------------------------------------------------
-CREATE SCHEMA `up2date` DEFAULT CHARACTER SET utf8 ;
-USE `up2date` ;
+CREATE SCHEMA `up2date_test` DEFAULT CHARACTER SET utf8 ;
+USE `up2date_test` ;
 
 -- -----------------------------------------------------
--- Table `up2date`.`employees`
+-- Table `up2date_test`.`employees`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `up2date`.`employees` (
+CREATE TABLE IF NOT EXISTS `up2date_test`.`employees` (
   `employee_id` int NOT NULL AUTO_INCREMENT,
   `role` VARCHAR(125) NOT NULL,
   `given_name` VARCHAR(125) NOT NULL,
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `up2date`.`employees` (
 );
 
 -- -----------------------------------------------------
--- Table `up2date`.`trainings`
+-- Table `up2date_test`.`trainings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `up2date`.`trainings` (
+CREATE TABLE IF NOT EXISTS `up2date_test`.`trainings` (
   `training_id` int NOT NULL AUTO_INCREMENT,
   `employee_id` int NOT NULL,
   `category` VARCHAR(125) NOT NULL,

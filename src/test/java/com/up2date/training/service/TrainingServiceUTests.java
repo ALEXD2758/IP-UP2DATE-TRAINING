@@ -3,41 +3,32 @@ package com.up2date.training.service;
 import com.up2date.training.model.EmployeeModel;
 import com.up2date.training.model.TrainingModel;
 import com.up2date.training.repository.RoleEnum;
-import com.up2date.training.repository.TrainingRepository;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sql.DataSource;
-import java.net.ConnectException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class TrainingServiceUTests {
 
     @Autowired
-    private DataSource dataSource;
+    private TrainingService trainingService;
 
     @Autowired
-    TrainingService trainingService;
-
-    @Autowired
-    private TrainingRepository trainingRepository;
+    private EmployeeService employeeService;
 
     public TrainingModel trainingModel1() {
         TrainingModel training1 = new TrainingModel();
 
         training1.setTrainingId(1);
+        training1.setEmployee(employeeModel1());
         training1.setCategory("JAVA");
         training1.setName("Java SE 16 - new feature");
         training1.setStartDate(LocalDate.of(2021,05,01));
@@ -51,6 +42,7 @@ public class TrainingServiceUTests {
         TrainingModel training2 = new TrainingModel();
 
         training2.setTrainingId(2);
+        training2.setEmployee(employeeModel1());
         training2.setCategory("JAVA");
         training2.setName("Java SE 8");
         training2.setStartDate(LocalDate.of(2021,06,01));
@@ -64,11 +56,12 @@ public class TrainingServiceUTests {
         TrainingModel training3 = new TrainingModel();
 
         training3.setTrainingId(3);
+        training3.setEmployee(employeeModel1());
         training3.setCategory("JAVA");
         training3.setName("Java SE 11");
         training3.setStartDate(LocalDate.of(2021,05,01));
         training3.setEndDate(LocalDate.of(2021,05,03));
-        training3.setTotalHours("16");
+        training3.setTotalHours("8");
 
         return training3;
     }
@@ -85,17 +78,23 @@ public class TrainingServiceUTests {
     }
 
     @Before
-    public void savePatientsToDbBeforeTests() throws SQLException {
-        ScriptUtils.executeSqlScript(dataSource.getConnection(), new FileSystemResource("src/test/resources/sqlscript_test.sql"));
-        //trainingRepository.deleteAll();
-        //trainingService.saveTraining(patientModel1());
-        //trainingService.saveTraining(patientModel2());
+    public void savePatientsToDbBeforeTests() {
+        employeeService.saveEmployee(employeeModel1());
     }
 
     @Test
-    @DisplayName("findTrainingsByEmployeeId returns correct List<TrainingModel>")
-    public void findTrainingsByEmployeeIdReturnsCorrectListTrainings() throws ConnectException {
+    public void save3TrainingsShouldSave3TrainingModel() {
+        TrainingModel training1 = trainingService.saveTraining(trainingModel1(), 1);
+        TrainingModel training2 = trainingService.saveTraining(trainingModel2(), 1);
+        TrainingModel training3 = trainingService.saveTraining(trainingModel3(), 1);
 
+        Assert.assertTrue(training1.getTotalHours().equals("16"));
+        Assert.assertTrue(training2.getName().equals("Java SE 8"));
+        Assert.assertTrue(training3.getTotalHours().equals("8"));
+    }
+
+    @Test
+    public void findTrainingsByEmployeeIdReturnsCorrectListTrainings() {
         LocalDate date1 = LocalDate.of(2021,05,01);
         LocalDate date2 = LocalDate.of(2021,06,01);
 
@@ -107,6 +106,6 @@ public class TrainingServiceUTests {
         Assert.assertTrue(trainingList.get(1).getTotalHours().equals("16"));
         Assert.assertTrue(trainingList.get(1).getName().equals("Java SE 8"));
         Assert.assertTrue(trainingList.get(1).getStartDate().equals(date2));
-        Assert.assertTrue(trainingList.size() == 2);
+        Assert.assertTrue(trainingList.size() == 3);
     }
 }

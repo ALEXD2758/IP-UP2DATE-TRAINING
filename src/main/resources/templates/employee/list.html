@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<title>Up2Date - Training Tracker</title>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+</head>
+<body style="
+    width: 1650px;
+">
+<div class="container" style=" margin-left: 35px;">
+	<div class="row" style=" width: 1880px;">
+
+		<div class="col-6">
+			<h2>Employee View List</h2>
+		</div>
+	</div>
+
+	<p class="alert alert-success" th:if="${!#strings.isEmpty(successSaveMessage)}" th:text="${successSaveMessage}"></p>
+	<div class="row">
+		<a href="/employee/add" class="btn btn-primary btn-sm">Add New</a>
+		<table class="table table-bordered" style="width: 1872px;">
+			<thead>
+			<tr>
+				<th>Employee ID</th>
+				<th>Given Name</th>
+				<th>Family Name</th>
+				<th>Role</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="employee : ${employees}">
+				<td style="width: 2% "><span th:text="${employee.employeeId}"> N/A </span></td>
+				<td style="width: 9% "><span th:text="${employee.givenName}"> N/A </span></td>
+				<td style="width: 9% "><span th:text="${employee.familyName}"> N/A </span></td>
+				<td style="width: 6% "><span th:text="${employee.role}"> N/A </span></td>
+				<td style="width: 10%" class="text-center">
+					<a th:href="@{/training/list/{employeeId}(employeeId=${employee.employeeId})}">List Trainings</a>&nbsp;|&nbsp;
+					<a th:href="@{/training/add/{employeeId}(employeeId=${employee.employeeId})}")>Add Training</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>
