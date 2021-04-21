@@ -1,5 +1,7 @@
 package com.up2date.training.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.*;
@@ -19,11 +21,8 @@ public class TrainingModel {
     @JoinColumn(name = "employee_id")
     private EmployeeModel employee;
 
-    //@Column(name = "employee_id")
-    //private Integer employeeId;
-
     @NotEmpty(message="Category cannot be empty")
-    @Size(min=2, max=125, message="Name must be between 2 and 125 characters")
+    @Size(min=2, max=125, message="Category must be between 2 and 125 characters")
     @Column(name="category")
     private String category;
 
@@ -34,11 +33,13 @@ public class TrainingModel {
 
     @Future(message = "The date should be a date in the future or now")
     @NotNull(message="Start date cannot be empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="start_date")
     private LocalDate startDate;
 
     @Future(message = "The date should be a date in the future or now")
     @NotNull(message="End date cannot be empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="end_date")
     private LocalDate endDate;
 

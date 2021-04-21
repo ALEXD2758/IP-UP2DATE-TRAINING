@@ -1,7 +1,7 @@
 package com.up2date.training.repository;
 
 public enum RoleEnum {
-
+    //Declare here the possible roles allowed for the employees
     USER("User"),
     ADMIN("Admin");
 

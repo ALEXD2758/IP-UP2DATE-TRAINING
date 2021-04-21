@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<title>Up2Date - Training Tracker</title>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+</head>
+<body style="
+    width: 1650px;
+">
+<div class="container" style=" margin-left: 35px;">
+	<div class="row" style=" width: 1880px;">
+
+		<div class="col-6">
+			<h2>Training View List</h2>
+		</div>
+	</div>
+	
+	<p class="alert alert-success" th:if="${!#strings.isEmpty(successSaveMessage)}" th:text="${successSaveMessage}"></p>
+	<div class="row">
+		<a th:href="@{/training/add/{employeeId}(employeeId=${employeeId})}" class="btn btn-primary btn-sm">Add New</a>
+		<table class="table table-bordered" style="width: 1872px;">
+			<thead>
+			<tr>
+				<th>Training ID</th>
+				<th>Category</th>
+				<th>Name</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Total Hours</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="training : ${trainings}">
+				<td style="width: 2% "><span th:text="${training.trainingId}"> N/A </span></td>
+				<td style="width: 2% "><span th:text="${training.category}"> N/A </span></td>
+				<td style="width: 2% "><span th:text="${training.name}"> N/A </span></td>
+				<td style="width: 2% "><span th:text="${training.startDate}"> N/A </span></td>
+				<td style="width: 2% "><span th:text="${training.endDate}"> N/A </span></td>
+				<td style="width: 2% "><span th:text="${training.totalHours}"> N/A </span></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

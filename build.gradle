@@ -24,25 +24,22 @@ dependencies {
     //Thymeleaf extra dependency - used for handling time library with thymeleaf
     implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     //Spring Boot Starter web dependency - used for building a RESTFUL app
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    //implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    //FOR LATER IMPLEMENTATION OF THE SECURITY LAYER
     //implementation 'org.springframework.boot:spring-boot-starter-security'
+
     //Hibernate validator dependency - used for validation constraints
     implementation 'org.hibernate:hibernate-validator:6.0.13.Final'
     runtimeOnly 'mysql:mysql-connector-java'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
 
+    //testCompile('mysql:mysql-connector-java')
     //JUnit dependency
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+    testCompile 'junit:junit:4.12'
     //Spring Boot starter test - for testing
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
-}
-
-test {
-    useJUnitPlatform()
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
 }
 
 // JACOCO TOOL VERSION
