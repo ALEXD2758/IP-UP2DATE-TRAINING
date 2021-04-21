@@ -39,6 +39,15 @@ public class EmployeeService {
     }
 
     /**
+     * Check if an employee ID already exists.
+     * @param employeeId the int of the employee ID
+     * @return true if employee ID already exists, false if employee ID doesn't exist
+     */
+    public boolean checkEmployeeIdExists(int employeeId) {
+        return employeeRep.existsById(employeeId);
+    }
+
+    /**
      * Get a list of all employees present in the DB "Up2Date" => table "employees"
      *
      * @return list of EmployeeModel containing all employees

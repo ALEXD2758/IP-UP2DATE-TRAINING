@@ -75,4 +75,15 @@ public class EmployeeModel {
     public void setTraining(List<TrainingModel> training) {
         this.training = training;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeModel{" +
+                "employeeId=" + employeeId +
+                ", role=" + role +
+                ", givenName='" + givenName + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", training=" + training +
+                '}';
+    }
 }

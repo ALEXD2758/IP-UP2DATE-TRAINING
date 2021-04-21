@@ -22,7 +22,7 @@ public class TrainingModel {
     private EmployeeModel employee;
 
     @NotEmpty(message="Category cannot be empty")
-    @Size(min=2, max=125, message="Name must be between 2 and 125 characters")
+    @Size(min=2, max=125, message="Category must be between 2 and 125 characters")
     @Column(name="category")
     private String category;
 

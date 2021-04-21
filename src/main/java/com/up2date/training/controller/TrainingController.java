@@ -1,6 +1,5 @@
 package com.up2date.training.controller;
 
-import com.up2date.training.model.EmployeeModel;
 import com.up2date.training.model.TrainingModel;
 import com.up2date.training.service.EmployeeService;
 import com.up2date.training.service.TrainingService;
@@ -40,6 +39,7 @@ public class TrainingController {
      */
     @GetMapping("/training/list/{employeeId}")
     public String trainingList(@PathVariable("employeeId") Integer employeeId, Model model, RedirectAttributes ra) {
+        //TODO add a check if employeeId is present and has not been deleted
         model.addAttribute("trainings", trainingService.findTrainingsByEmployeeId(employeeId));
         logger.info("GET /training/list : OK");
         return "training/list";
@@ -56,12 +56,10 @@ public class TrainingController {
     @GetMapping("/training/add/{employeeId}")
     public String trainingAdd(@PathVariable("employeeId") Integer employeeId, final Model model) {
         TrainingModel newTrainingModel = new TrainingModel();
-
+        //TODO add a check if employeeId is present and has not been deleted
         if(!model.containsAttribute("trainingToCreate")) {
             model.addAttribute("trainingToCreate", newTrainingModel);
         }
-
-        //model.addAttribute("trainingToCreate", new TrainingModel());
         logger.info("GET /training/add : OK");
         return "training/add";
     }
@@ -71,8 +69,7 @@ public class TrainingController {
                                       @Valid @ModelAttribute("trainingToCreate") final TrainingModel trainingToCreate,
                                       final BindingResult result, final RedirectAttributes ra) {
         if (!result.hasErrors()) {
-            EmployeeModel employee = employeeService.findEmployee(employeeId);
-            if (employeeService.checkEmployeeExists(employee) == false) {
+            if (employeeService.checkEmployeeIdExists(employeeId) == false) {
                 logger.info("/employee/add/validate : Employee doesn't exist");
                 ra.addFlashAttribute("ErrorEmployeeNonExistentMessage", "Employee doesn't exist");
                 return "redirect:/training/add/{employeeId}";
